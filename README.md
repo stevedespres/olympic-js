@@ -14,6 +14,8 @@ Gestion des inscriptions avec la réalisation d'un premier jeu, le tic tac toe e
 Réalisation d'un système de classement entre les différents joueurs
 ### Objectif 3
 Réalisation de 2-3 jeux supplémentaires.
+###Deadline 
+1 Février 2018
 
 ## Technologies utilisées
  - JavaScript / HTML5 / CSS3
