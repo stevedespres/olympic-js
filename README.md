@@ -24,3 +24,18 @@ Réalisation de 2-3 jeux supplémentaires.
  - Socket io
  - React ou Vue
 
+ 
+## Installation de MongoDB
+1) mongoDB : Télécharger https://www.mongodb.com/download-center/community : extraire le zip de mongoDB 
+2) Lancement de la base de données "cd mongoRepertoire/bin/" puis "/mongod"
+3) Lancement de l'invit de commande mongoDB : "cd mongoRepertoire/bin/" puis "/mongo"
+
+4) mongo Compass (UI pour visualiser la BDD) : Télécharger https://www.mongodb.com/download-center/compass : extraire et lancer MongoDBCompass.exe
+5) Connexion BDD avec Compass : localhost:20017
+
+## Pour lancer le projet 
+0) Récupérer les packages : dans olympicJS et olympicJS/client : npm install
+1) Lancer MongoDB
+2) Lancer le serveur NodeJS : cd olympicJS : npm start
+3) Lancer l'application React : cd olympicJS/client : npm start
+4) Aller sur localhost:3000

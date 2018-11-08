@@ -1,8 +1,10 @@
+var account = require('./controllers/account/authentification.js');
+
 // Routes des pages
 module.exports = function(app) {
 
-    app.get('/', function(req,res){
-        res.sendfile('./views/helloworld.html');
-    }); 
-
+    // Requête pour la connexion
+    app.post('/user/login',account.login);
+    // Requête pour l'inscription
+    app.post('/user/signup',account.signup);
 }
