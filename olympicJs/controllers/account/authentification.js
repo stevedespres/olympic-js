@@ -2,14 +2,14 @@ const User = require('../../schemas/schemaUser.js');
 const passwordHash = require("password-hash");
 
 /**
-Fonction Singnup : inscription un nouvel User
+Fonction Singnup : inscription d'un nouvel utilisateur (User)
 **/
 exports.signup = function(req, res) {
     // Si le login ou le mot de passe n'est pas renseigné
     if (!req.body.login || !req.body.password) {
         // Erreur 400
         res.status(400).json({
-            "text": "Login ou mot de passe manquant"
+            "text": "Login ou mot de passe manquant. Veuillez renseigner tous les champs."
         })
     // Sinon
     } else {
