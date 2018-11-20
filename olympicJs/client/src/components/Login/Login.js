@@ -46,7 +46,7 @@ export class Login extends React.Component {
             [event.target.id]: event.target.value
         });
     }
-    // Rendu de la page
+    // Rendu de la page login
     render() {
         return(
             <div className="Login">
