@@ -41,3 +41,15 @@ Réalisation de 2-3 jeux supplémentaires.
 4) Aller sur localhost:3000
 
 ## Utilisation de source tree
+Télécharger et installer SourceTree : https://www.sourcetreeapp.com/
+Ensuite il va falloir générer une clef SSH et l'ajouter à GitLab et SourceTree pour pouvoir utiliser SourceTree.
+### Génération de la clef
+    ssh-keygen -o -t rsa -b 4096 -C "example@example.com"
+Avec l'adresse mail qui correspond à celle de GitLab.
+Ensuite il propose une destination d'enregistrement, il est préférable de conserver celle par défaut en tapant sur entrer. Il est également possible de mettre un mot de passe, mais ce n'est pas obligatoire (sans mot de passe : 2x entrer)
+Une fois que la clef est générée (chemin par défaut : C:\Users\user\.ssh), copier l'**INTEGRALITE** du contenu du fichier **id_rsa.pub**.
+### Configuration GitLab
+Coller ce contenu sur GitLab dans **User>Settings>SSHKey>Key** et cliquer sur Add Key.
+### Configuration SourceTree
+Lors de l'installation de SourceTree si il vous demande si vous avez une clef dite non. Ensuite aller dans **Tool>Options>General** dans l'onglet **SSH client** modifier l'option **Putty/Link** par défaut en **SSHKey** ensuite renseigner le chemin de votre clef **.ssh\id_rsa**.
+**And it's done !!**
