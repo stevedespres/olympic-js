@@ -30,11 +30,17 @@ export class Login extends React.Component {
             return;
         }
         // Envoie du login et password à l'API NodeJS
-        API.login(this.state.login, this.state.password).then(function(data){
-            // Sauvegarde du token de connexion
-            localStorage.setItem('token', data.data.token);
-            // Redirection vers la page Dashboard
-            window.location = "/dashboard"
+        API.login(this.state.login, this.state.password).then(function(res){
+
+          if(res.data.status === "ERROR"){
+              ToastStore.error(res.data.result);
+            }else{
+              // Sauvegarde du token de connexion
+              localStorage.setItem('login', res.data.login);
+              localStorage.setItem('token', res.data.token);
+              // Redirection vers la page Dashboard
+              window.location = "/dashboard"
+            }
         },function(error){
             console.log(error);
             ToastStore.error("Le nom et le mot de passe sont invalides")
