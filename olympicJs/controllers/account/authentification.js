@@ -100,6 +100,7 @@ exports.signup = function(req, res) {
 Fonction Login : Connexion d'un userSchema
 **/
 exports.login = function(req, res) {
+  console.log(req);
     // Si le login ou password est manquant
     if (!req.body.login || !req.body.password) {
         // Erreur 400

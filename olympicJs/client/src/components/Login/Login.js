@@ -29,8 +29,13 @@ export class Login extends React.Component {
           ToastStore.error("Entrez un mot de passe correct")
             return;
         }
+
+        var _send = {
+            login: this.state.login,
+            password: this.state.password
+        }
         // Envoie du login et password à l'API NodeJS
-        API.login(this.state.login, this.state.password).then(function(res){
+        API.login(_send).then(function(res){
 
           if(res.data.status === "ERROR"){
               ToastStore.error(res.data.result);

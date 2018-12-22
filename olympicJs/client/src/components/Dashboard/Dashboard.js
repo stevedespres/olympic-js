@@ -6,24 +6,20 @@ import API from '../../utils/API';
 export class Dashboard extends React.Component {
     constructor(props){
         super(props);
-        this.disconnect.bind(this);
     }
-    disconnect = event => {
-        API.logout();
-        window.location = "/";
-    }
+    wellStyles = { maxWidth: 400, margin: '0 auto 10px' };
     render() {
         return(
             <div className="Dashboard">
-                <h1>Dashboard</h1>
-                <Button
-                onClick={this.disconnect}
-                block
-                bsSize="large"
-                type="submit"
-                >
-                Se déconnecter
-                </Button>
+                <h1>Bienvenue {localStorage.getItem("login")}</h1>
+                <div className="well" style={this.wellStyles}>
+                   <Button bsStyle="primary" bsSize="large" href="/gameconfig" block>
+                     Créer une partie
+                   </Button>
+                   <Button bsSize="large" href="/joinGame" block>
+                     Rejoindre une partie
+                   </Button>
+               </div>
             </div>
         )
     }

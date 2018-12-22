@@ -5,13 +5,8 @@ const headers = {
 const burl = "http://localhost:8080"
 
 export default {
-    login : function(login,password) {
-        return axios.post(burl + '/user/login',{
-            'login' : login,
-            'password' : password
-        },{
-            headers: headers
-        })
+    login : function(send) {
+        return axios.post(burl + '/user/login',send,{headers: headers})
     },
     signup : function(send){
         return axios.post(burl + '/user/signup',send,{headers: headers})
@@ -22,5 +17,9 @@ export default {
     },
     logout : function() {
         localStorage.clear();
+    },
+
+    joingame : function(send) {
+      return axios.post(burl + '/game/join',send,{headers: headers})
     }
 }

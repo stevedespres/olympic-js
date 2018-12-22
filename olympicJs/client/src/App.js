@@ -3,6 +3,9 @@ import { Route, Switch } from 'react-router-dom';
 import { Dashboard } from './components/Dashboard/Dashboard.js';
 import { Login } from './components/Login/Login.js';
 import { Signup } from './components/Signup/Signup.js';
+import { Logout } from './components/Logout/Logout.js';
+import { GameConfig } from './components/GameConfig/GameConfig.js';
+import { JoinGame } from './components/JoinGame/JoinGame.js';
 import { PrivateRoute } from './components/PrivateRoute.js';
 import { PublicRoute } from './components/PublicRoute.js';
 import API from './utils/API';
@@ -16,9 +19,9 @@ class App extends Component {
 
     if(API.isAuth()){
       return (
-        <Nav>
-          <NavItem eventKey={1}>
-          Se deconnecter
+        <Nav pullRight>
+          <NavItem eventKey={1} href="/logout">
+              Se deconnecter
         </NavItem>
         </Nav>
       );
@@ -55,6 +58,9 @@ class App extends Component {
                      <PublicRoute exact path="/" component={Login}/>
                      <PublicRoute exact path ="/signup" component={Signup}/>
                      <PrivateRoute path='/dashboard' component={Dashboard} />
+                     <PrivateRoute path='/logout' component={Logout} />
+                     <PrivateRoute path='/gameconfig' component={GameConfig} />
+                     <PrivateRoute path='/joingame' component={JoinGame} />
                  </Switch>
              </div>
       </div>
