@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, FormGroup, FormControl,MenuItem, ControlLabel } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import Checkbox from '../../utils/Checkbox';
 import {ToastContainer, ToastStore} from 'react-toasts';
 import API from '../../utils/API';
@@ -52,24 +52,35 @@ export class GameConfig extends React.Component {
       });
     }
 
-    handleGamesChange(event) {
-      this.setState({
-        nbPlayers: event.target.value
-      });
-    }
-
     handleFormSubmit(event) {
       event.preventDefault();
       // Verification qu'au moins un jeu est selectionné
-      if(this.selectedCheckboxes.size == 0){
+      if(this.selectedCheckboxes.size === 0){
         ToastStore.error("Selectionnez au moins un jeu");
-      }
-      for (const checkbox of this.selectedCheckboxes) {
-        console.log(checkbox, 'is selected.');
-      }
 
-      alert(`You chose the ${this.state.nbPlayers} pizza.`);
-}
+      }else{
+
+          let gamesSelected = Array.from(this.selectedCheckboxes)
+          console.log(gamesSelected);
+
+          /* Creation de l'objet à envoyer au serveur */
+          var _send = {
+              creator : localStorage.getItem("login"),
+              nbplayers: this.state.nbPlayers,
+              gamesSelected : gamesSelected,
+          }
+          // Envoie des infos de la partie à l'API NodeJS
+          API.createGame(_send).then(function(res){
+              ToastStore.success("OK");
+              // Redirection vers la page GameRoom
+              window.location = "/gameroom:"+res.data;
+          },function(error){
+              console.log(error);
+              ToastStore.error("Impossible de crer la partie");
+              return;
+          })
+      }
+    }
 
 
     wellStyles = { maxWidth: 400, margin: '0 auto 10px' };

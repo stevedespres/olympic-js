@@ -1,5 +1,4 @@
 const User = require('../../schemas/schemaUser.js');
-
 const passwordHash = require("password-hash");
 
 /**

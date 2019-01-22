@@ -66,7 +66,7 @@ export class Signup extends React.Component {
         var regex = /[a-zA-Z0-9._-]{3,16}/;
         if (regex.test(this.state.login)) return 'success';
         else return 'error';
-        return null;
+
       }
     }
 
@@ -77,7 +77,7 @@ export class Signup extends React.Component {
         var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,})/;
         if (regex.test(this.state.password)) return 'success';
         else return 'error';
-        return null;
+
       }
     }
 
@@ -87,7 +87,7 @@ export class Signup extends React.Component {
       }else{
           if (this.state.password === this.state.cpassword) return 'success';
           else return 'error';
-          return null;
+
       }
     }
 

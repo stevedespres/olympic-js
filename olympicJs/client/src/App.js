@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import { Dashboard } from './components/Dashboard/Dashboard.js';
 import { Login } from './components/Login/Login.js';
 import { Signup } from './components/Signup/Signup.js';
 import { Logout } from './components/Logout/Logout.js';
 import { GameConfig } from './components/GameConfig/GameConfig.js';
+import { GameRoom } from './components/GameRoom/GameRoom.js';
 import { JoinGame } from './components/JoinGame/JoinGame.js';
 import { PrivateRoute } from './components/PrivateRoute.js';
 import { PublicRoute } from './components/PublicRoute.js';
 import API from './utils/API';
 import './App.css';
 
-import { Navbar, MenuItem, NavItem, Nav, NavDropdown } from "react-bootstrap";
+import { Navbar, NavItem, Nav } from "react-bootstrap";
 
 class App extends Component {
 
@@ -61,6 +62,7 @@ class App extends Component {
                      <PrivateRoute path='/logout' component={Logout} />
                      <PrivateRoute path='/gameconfig' component={GameConfig} />
                      <PrivateRoute path='/joingame' component={JoinGame} />
+                     <PrivateRoute path='/gameroom::id' component={GameRoom} />
                  </Switch>
              </div>
       </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, FormGroup, FormControl, ControlLabel, Navbar, MenuItem, NavItem, Nav, NavDropdown } from "react-bootstrap";
+import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import {ToastContainer, ToastStore} from 'react-toasts';
 import API from '../../utils/API';
 
@@ -29,7 +29,7 @@ export class Login extends React.Component {
           ToastStore.error("Entrez un mot de passe correct")
             return;
         }
-
+        /* Creation de l'objet à envoyer au serveur */
         var _send = {
             login: this.state.login,
             password: this.state.password

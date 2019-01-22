@@ -6,8 +6,6 @@ import { Route, Redirect } from 'react-router-dom';
 export const PublicRoute = ({ component: Component, ...rest }) => (
           <Route {...rest} render={(
                   props) => {
-                    console.log(props.location.pathname);
-                      var path = props.location.pathname;
                       // Si l'user n'est pas connecté
                       if(API.isAuth()===true){
                           return(<Redirect to='/Dashboard' />)

@@ -1,12 +1,9 @@
 import React from 'react';
 import { Button } from "react-bootstrap";
 
-import API from '../../utils/API';
 
 export class Dashboard extends React.Component {
-    constructor(props){
-        super(props);
-    }
+
     wellStyles = { maxWidth: 400, margin: '0 auto 10px' };
     render() {
         return(

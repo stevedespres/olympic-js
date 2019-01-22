@@ -11,14 +11,18 @@ export default {
     signup : function(send){
         return axios.post(burl + '/user/signup',send,{headers: headers})
     },
-
     isAuth : function() {
         return (localStorage.getItem('token') !== null);
     },
     logout : function() {
         localStorage.clear();
     },
-
+    createGame : function(send) {
+      return axios.post(burl + '/game/create',send,{headers: headers})
+    },
+    checkGame : function(send){
+      return axios.post(burl + '/game/check',send,{headers: headers})
+    },
     joingame : function(send) {
       return axios.post(burl + '/game/join',send,{headers: headers})
     }
