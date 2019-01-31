@@ -31,7 +31,7 @@ module.exports = function(io){
                   allCurrentGames[_dataGame.gameId] = {
                       gameId : _dataGame.gameId,
                       nbPlayers : {
-                        current : currentGame.players.length,
+                        current : 0,
                         max : currentGame.nbPlayers.max,
                       } ,
                       players : [],
@@ -50,6 +50,9 @@ module.exports = function(io){
 
       /** JOUEUR REJOINS UNE PARTIE **/
       socket.on('join-game', function(_dataGame){
+
+            //On ajoute le joueur à la "room"
+           socket.join(_dataGame.gameId);
            console.log(allCurrentGames[_dataGame.gameId]);
            var samePlayer = false;
             // Ajout du nouveau joueur
@@ -67,13 +70,30 @@ module.exports = function(io){
 
            console.log("MaJ Games tab ");
            console.log(allCurrentGames[_dataGame.gameId]);
-           socket.emit('ack-join-game', {dataGame :allCurrentGames[_dataGame.gameId]});
+           // Envoie de la mise à jour de la partie à tout les joueurs
+           io.sockets.to(_dataGame.gameId).emit('ack-join-game', {dataGame :allCurrentGames[_dataGame.gameId]});
       });
 
 
-
-
-
-
+      /** JOUEUR QUITTE UNE PARTIE **/
+      socket.on('exit-game', function(_dataGame){
+          console.log(_dataGame);
+          console.log("exit game");
+          // Suppression du joueur
+          allCurrentGames[_dataGame.gameId].players.splice( allCurrentGames[_dataGame.gameId].players.indexOf(_dataGame.player), 1 );
+          // Mise à jour du nombre de joueurs
+          allCurrentGames[_dataGame.gameId].nbPlayers.current--;
+          if( allCurrentGames[_dataGame.gameId].nbPlayers.current === 0 ){
+              // Suppression de la partie
+              delete allCurrentGames[_dataGame.gameId];
+              Game.remove({gameId : _dataGame.gameId},function(err, countRemoved){
+                  console.log("Game "+ _dataGame.gameId +" canceled");
+                  io.sockets.to(_dataGame.gameId).emit('ack-exit-game');
+              })
+            }else{
+              // Mise à jour de la liste des joueuers
+              io.sockets.to(_dataGame.gameId).emit('ack-join-game', {dataGame :allCurrentGames[_dataGame.gameId]});
+            }
+      });
   });
 }

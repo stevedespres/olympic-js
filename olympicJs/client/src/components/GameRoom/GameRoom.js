@@ -43,6 +43,26 @@ export class GameRoom extends React.Component {
         }else{
           console.log("Partie valide");
         }
+
+        /* Connexion avec Socket io */
+        const socket = socketIOClient(this.state.endpoint);
+        /* Rejoindre la partie créée */
+        var _dataGame = {
+          gameId : this.gameId,
+          player : localStorage.getItem("login"),
+        }
+        /* Init game */
+        socket.emit('init-game', _dataGame);
+        /* When Init is ok */
+        socket.on('ack-init-game', function(res){
+          /* Join game */
+          socket.emit('join-game', _dataGame);
+        });
+        /* Mise a jour game */
+        socket.on('ack-join-game', res => {
+            this.setState({players :  res.dataGame.players});
+        });
+
     }
 
     /** Fonction de verification de la partie **/
@@ -68,9 +88,8 @@ export class GameRoom extends React.Component {
       }
     }
 
-    wellStyles = { maxWidth: 400, margin: '0 auto 10px' };
-    render() {
-      /* Connexion avec Socket io */
+    // Gestion des évenements
+    exitGame = () => {
       const socket = socketIOClient(this.state.endpoint);
       /* Rejoindre la partie créée */
       var _dataGame = {
@@ -78,17 +97,17 @@ export class GameRoom extends React.Component {
         player : localStorage.getItem("login"),
       }
       /* Init game */
-      socket.emit('init-game', _dataGame);
-      /* When Init is ok */
-      socket.on('ack-init-game', function(res){
-        /* Join game */
-        socket.emit('join-game', _dataGame);
-      });
-      /* Mise a jour game */
-      socket.on('ack-join-game', res => {
-          this.setState({players :  res.dataGame.players});
+      socket.emit('exit-game', _dataGame);
+
+      socket.on('ack-exit-game', res => {
+          window.location = "/";
       });
 
+    }
+
+
+    wellStyles = { maxWidth: 400, margin: '0 auto 10px' };
+    render() {
 
        const  classes  = this.props;
         return(
@@ -98,7 +117,7 @@ export class GameRoom extends React.Component {
                       <h2>Informations</h2>
                       Code de la partie : {this.gameId}
                       <br></br>
-                      <h2>Joueurs (0/2)</h2>
+                      <h2>Joueurs ({this.state.players.length}/2)</h2>
                       <div id="cards">
                       </div>
                       {this.state.players.map(player =>
@@ -109,11 +128,6 @@ export class GameRoom extends React.Component {
                                             {player.charAt(0)}
                                         </Avatar>
                                     }
-                                    action={
-                                        <IconButton>
-                                            <MoreVertIcon />
-                                        </IconButton>
-                                    }
                                     title={player}
                                     subheader=""
                                 />
@@ -123,7 +137,10 @@ export class GameRoom extends React.Component {
                     <br></br>
                   <Button bsStyle="primary" type="submit" bsSize="large" block>
                   Lancer la partie
-                </Button>
+                  </Button>
+                  <Button onClick={this.exitGame} bsStyle="danger" bsSize="large" block>
+                  Quitter
+                  </Button>
 
               </form>
             </div>
@@ -132,8 +149,6 @@ export class GameRoom extends React.Component {
         )
     }
 }
-GameRoom.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+
 
 export default withStyles(styles)(GameRoom);
