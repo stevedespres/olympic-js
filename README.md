@@ -36,8 +36,8 @@ Réalisation de 2-3 jeux supplémentaires.
 ## Pour lancer le projet
 0) Récupérer les packages : dans olympicJS et olympicJS/client : npm install
 1) Lancer MongoDB
-2) Lancer le serveur NodeJS : cd olympicJS : npm start
-3) Lancer l'application React : cd olympicJS/client : npm start
+2) Lancer le serveur NodeJS : cd server : npm start
+3) Lancer l'application React : cd client : npm start
 4) Aller sur localhost:3000
 
 ## Utilisation de source tree
