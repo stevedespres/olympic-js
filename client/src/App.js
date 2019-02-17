@@ -7,6 +7,7 @@ import { Logout } from './components/Logout/Logout.js';
 import { GameConfig } from './components/GameConfig/GameConfig.js';
 import { GameRoom } from './components/GameRoom/GameRoom.js';
 import { JoinGame } from './components/JoinGame/JoinGame.js';
+import { TicTacToe } from './components/Games/TicTacToe.js';
 import { PrivateRoute } from './components/PrivateRoute.js';
 import { PublicRoute } from './components/PublicRoute.js';
 import API from './utils/API';
@@ -63,6 +64,7 @@ class App extends Component {
                      <PrivateRoute path='/gameconfig' component={GameConfig} />
                      <PrivateRoute path='/joingame' component={JoinGame} />
                      <PrivateRoute path='/gameroom::id' component={GameRoom} />
+                    <PrivateRoute path='/TicTacToe::id' component={TicTacToe} />
                  </Switch>
              </div>
       </div>

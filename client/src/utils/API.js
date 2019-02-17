@@ -25,5 +25,8 @@ export default {
     },
     joingame : function(send) {
       return axios.post(burl + '/game/join',send,{headers: headers})
+    },
+    getStats : function(send) {
+      return axios.post(burl + '/user/stats',send,{headers: headers})
     }
 }

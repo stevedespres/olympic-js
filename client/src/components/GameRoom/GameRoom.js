@@ -33,6 +33,7 @@ export class GameRoom extends React.Component {
             endpoint: "http://127.0.0.1:8080",
             test : 0,
             players : [],
+            allStats : []
         }
         /* Récuperation de l'id de la partie dans l'url : get */
         this.gameId = this.props.match.params.id;
@@ -50,6 +51,10 @@ export class GameRoom extends React.Component {
         var _dataGame = {
           gameId : this.gameId,
           player : localStorage.getItem("login"),
+          victory : localStorage.getItem("victory"),
+          defeat : localStorage.getItem("defeat"),
+          equality : localStorage.getItem("equality"),
+
         }
         /* Init game */
         socket.emit('init-game', _dataGame);
@@ -60,7 +65,15 @@ export class GameRoom extends React.Component {
         });
         /* Mise a jour game */
         socket.on('ack-join-game', res => {
-            this.setState({players :  res.dataGame.players});
+            this.setState({players :  res.dataGame.players, allStats : res.dataGame.allStats} );
+                console.log(res);
+        });
+
+        /* Lancement d'une partie */
+        socket.on('ack-launch-game', res => {
+            // Redirection sur la page du jeu
+            // Cette façon fonctionne seulement pour un seul jeu
+            window.location = "/"+res.dataGame.games[0]+":"+res.dataGame.gameId;
         });
 
     }
@@ -102,9 +115,25 @@ export class GameRoom extends React.Component {
       socket.on('ack-exit-game', res => {
           window.location = "/";
       });
+    };
 
-    }
+    // Lancement de la partie
+    launchGame = () => {
 
+      const socket = socketIOClient(this.state.endpoint);
+
+      // Si il y a deux joueurs / 2
+      if(this.state.players.length === 2){
+        // Données a envoyer au serveur
+        var _dataGame = {
+          gameId : this.gameId,
+          player : localStorage.getItem("login"),
+        }
+        /* Init game */
+        socket.emit('launch-game', _dataGame);
+      }
+
+    };
 
     wellStyles = { maxWidth: 400, margin: '0 auto 10px' };
     render() {
@@ -129,13 +158,13 @@ export class GameRoom extends React.Component {
                                         </Avatar>
                                     }
                                     title={player}
-                                    subheader=""
+                                    subheader={this.state.allStats[player].victory + " / "+ this.state.allStats[player].equality + " / " +this.state.allStats[player].defeat}
                                 />
                             </Card>
                           )}
                       <form onSubmit={this.handleFormSubmit}>
                     <br></br>
-                  <Button bsStyle="primary" type="submit" bsSize="large" block>
+                  <Button onClick={this.launchGame} bsStyle="primary" bsSize="large" block>
                   Lancer la partie
                   </Button>
                   <Button onClick={this.exitGame} bsStyle="danger" bsSize="large" block>

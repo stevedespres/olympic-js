@@ -17,7 +17,11 @@ var userSchema = mongoose.Schema({
 	password: {
         type: String,
         required: true
-    }
+    },
+	 victory: Number,
+	 defeat: Number,
+	 equality: Number,
+
 },
 /** Timestamps de la création de l'user dans la BDD **/
 { timestamps: {
@@ -33,6 +37,15 @@ userSchema.methods = {
 	/** Recupération du token de connexion **/
 	getToken: function () {
 		return jwt.encode(this, "mediumMernAppCreation");
+	},
+	getVictory: function () {
+		return this.victory;
+	},
+	getDefeat: function () {
+		return this.defeat;
+	},
+	getEquality: function () {
+		return this.equality;
 	}
 }
 

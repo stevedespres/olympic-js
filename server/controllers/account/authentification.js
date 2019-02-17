@@ -37,7 +37,10 @@ exports.signup = function(req, res) {
          // Création d'une variable User avec le login et password
           var user = {
               login: req.body.login,
-              password: passwordHash.generate(req.body.password)
+              password: passwordHash.generate(req.body.password),
+              victory : 0,
+              defeat : 0,
+              equality : 0,
           }
         // Recherche dans la base de données si le login est déjà utilisé
           var findUser = new Promise(function (resolve, reject) {
@@ -69,11 +72,13 @@ exports.signup = function(req, res) {
                       result = "Erreur interne";
                       res.json({"status":"ERROR", "result" : result});
                   } else {
-                    console.log(user.login);
                       res.json({
                           "status" : "OK",
                           "login" : user.login,
-                          "token": user.getToken()
+                          "token": user.getToken(),
+                          "victory" : user.getVictory(),
+                          "defeat" : user.getDefeat(),
+                          "equality" : user.getEquality()
                       })
                   }
               })
@@ -126,7 +131,10 @@ exports.login = function(req, res) {
                         "token": user.getToken(),
                         "text": "Authentification réussi",
                         "login" : user.login,
-                        "status": "OK"
+                        "status": "OK",
+                        "victory" : user.getVictory(),
+                        "defeat" : user.getDefeat(),
+                        "equality" : user.getEquality()
                     })
                 }
                 else{

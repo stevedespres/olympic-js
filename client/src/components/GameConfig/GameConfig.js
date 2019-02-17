@@ -5,8 +5,7 @@ import {ToastContainer, ToastStore} from 'react-toasts';
 import API from '../../utils/API';
 
 const gamesAvailables = [
-  'TIC TAC TOE',
-  'PUISSANCE 4',
+  'TicTacToe',
 ]
 
 
@@ -100,27 +99,6 @@ export class GameConfig extends React.Component {
                     2
                   </label>
                 </div>
-
-                <div className="radio">
-                  <label>
-                    <input type="radio"
-                    value="4"
-                    checked={this.state.nbPlayers === "4"}
-                    onChange={this.handleNbPlayersChange}/>
-                    4
-                  </label>
-                 </div>
-
-                 <div className="radio">
-                    <label>
-                      <input type="radio"
-                      value="8"
-                      checked={this.state.nbPlayers === "8"}
-                      onChange={this.handleNbPlayersChange} />
-                      8
-                    </label>
-                  </div>
-
                 <label>Choix des jeux</label>
                   {this.createCheckboxes()}
 

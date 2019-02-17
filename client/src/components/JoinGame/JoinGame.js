@@ -40,21 +40,9 @@ export class JoinGame extends React.Component {
             gameId: this.state.gameId
 
         }
-        // Envoie de l'id de la partie à l'API NodeJS
-        API.joingame(_send).then(function(res){
-
-          if(res.data.status === "ERROR"){
-                ToastStore.error(res.data.result);
-              }else{
-
-                // Redirection vers la page de la partie
-                window.location = "/dashboard"
-              }
-        },function(error){
-            console.log(error);
-            ToastStore.error("La partie n'existe pas ou est complète")
-            return;
-        })
+        // Redirection vers la page de la partie
+        window.location = "/gameroom:"+_send.gameId;
+        
     }
     wellStyles = { maxWidth: 400, margin: '0 auto 10px' };
     render() {

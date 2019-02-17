@@ -43,6 +43,9 @@ export class Login extends React.Component {
               // Sauvegarde du token de connexion
               localStorage.setItem('login', res.data.login);
               localStorage.setItem('token', res.data.token);
+              localStorage.setItem('victory', res.data.victory);
+              localStorage.setItem('defeat', res.data.defeat);
+              localStorage.setItem('equality', res.data.equality);
               // Redirection vers la page Dashboard
               window.location = "/dashboard"
             }

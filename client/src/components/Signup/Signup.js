@@ -48,6 +48,9 @@ export class Signup extends React.Component {
             // Sauvegarde du login et du token de connexion
             localStorage.setItem('login', res.data.login);
             localStorage.setItem('token', res.data.token);
+            localStorage.setItem('victory', res.data.victory);
+            localStorage.setItem('defeat', res.data.defeat);
+            localStorage.setItem('equality', res.data.equality);
             // Rediraction vers la page Dashboard
             window.location = "/dashboard"
           }
