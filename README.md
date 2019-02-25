@@ -8,37 +8,56 @@ A la suite de notre première séance, nous avons décidé de créer une applica
 Les jeux seront des jeux simples que tout le monde connait, tels que le puissance 4 ou le tic tac toe.
 
 ## Les objectifs
-### Objectif 1
-Gestion des inscriptions avec la réalisation d'un premier jeu, le tic tac toe et également la réalisation d'un chat en temps réel avec les autres joueurs.
-### Objectif 2
-Réalisation d'un système de classement entre les différents joueurs
-### Objectif 3
-Réalisation de 2-3 jeux supplémentaires.
-### Deadline
-1 Février 2018
+
+- Création de comptes utilisateurs
+- Connexion avec son compte
+- Création de partie
+- Rejoindre des parties
+- Statistiques Victoire / Nul / Défaite
+- Chat 
+- Jeux : TicTacToe, Puissance4, bataille royal, etc...
 
 ## Technologies utilisées
- - JavaScript / HTML5 / CSS3
- - MonGoDB
- - Node
- - Socket io
- - React ou Vue
 
+- NodeJS : Backend
+- React : Frontend
+- MongoDB : Base de données
+- SocketIO : communications temps réel
+
+# Prérequis
+
+## Installation de NodeJS
+
+https://nodejs.org/en/
 
 ## Installation de MongoDB
+
 1) mongoDB : Télécharger https://www.mongodb.com/download-center/community : extraire le zip de mongoDB
-2) Lancement de la base de données "cd mongoRepertoire/bin/" puis "/mongod"
+2) Lancement de la base de données "cd mongoRepertoire/bin/" puis executer "/mongod"
 3) Lancement de l'invit de commande mongoDB : "cd mongoRepertoire/bin/" puis "/mongo"
 
 4) mongo Compass (UI pour visualiser la BDD) : Télécharger https://www.mongodb.com/download-center/compass : extraire et lancer MongoDBCompass.exe
 5) Connexion BDD avec Compass : localhost:20017
 
-## Pour lancer le projet
-0) Récupérer les packages : dans olympicJS et olympicJS/client : npm install
-1) Lancer MongoDB
-2) Lancer le serveur NodeJS : cd server : npm start
-3) Lancer l'application React : cd client : npm start
-4) Aller sur localhost:3000
+# Lancement du projet
+
+0) Cloner le projet
+1) Récupérer les packages : dans /server puis dans /client : npm install
+2) Lancer MongoDB : executer 'mongod'
+3) Lancer le serveur NodeJS : cd /server : npm start
+4) Lancer l'application React : cd /client : npm start
+5) Avec un navigateur, aller sur localhost:3000
+
+
+# Tester
+ 
+ Ouvrir 2 fenêtres de navigateur web en navigation privée pour simuler deux utilisateurs. 
+ Aller sur localhost:3000 puis créer des comptes utilisateurs, par exemple user1 et user2.
+ Avec user1 créez une partie.
+ Avec user2 rejoignez la partie. 
+ Jouez.
+
+# Autres
 
 ## Utilisation de source tree
 Télécharger et installer SourceTree : https://www.sourcetreeapp.com/
