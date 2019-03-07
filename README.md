@@ -72,4 +72,3 @@ Coller ce contenu sur GitLab dans **User>Settings>SSHKey>Key** et cliquer sur Ad
 ### Configuration SourceTree
 Lors de l'installation de SourceTree si il vous demande si vous avez une clef dite non. Ensuite aller dans **Tool>Options>General** dans l'onglet **SSH client** modifier l'option **Putty/Link** par défaut en **SSHKey** ensuite renseigner le chemin de votre clef **.ssh\id_rsa**.
 **And it's done !!**
->>>>>>> 612423ee002fe086286991e4265ebf12bb46c289
