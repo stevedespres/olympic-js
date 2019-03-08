@@ -220,5 +220,19 @@ module.exports = function(io){
     socket.on('replay-tictactoe', function(data){
       io.sockets.to(data).emit('ack-replay-tictactoe', {data});
     });
+
+    /** Envoie du chat aux clients**/
+    socket.on('message', function(data_msg){
+    io.sockets.to(data_msg.gameId).emit('ack-message', 
+    { message : data_msg.message, 
+      user : data_msg.user,
+      heure :  data_msg.heure,
+      minute: data_msg.minute,
+      seconde: data_msg.seconde});
+    });
   });
+
+  
+
+
 }

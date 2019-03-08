@@ -1,9 +1,12 @@
 import React from 'react';
-import { Button } from "react-bootstrap";
+//import { Button } from "react-bootstrap";
 import {ToastContainer, ToastStore} from 'react-toasts';
 import socketIOClient from 'socket.io-client';
 import { Button as Btn, Confirm } from 'semantic-ui-react'
 import './TicTacToe.css';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
 
 const Square = props => {
   const { value, ...other } = props;
@@ -160,7 +163,8 @@ export class TicTacToe extends React.Component {
           chat: [{txt : String, idx : Number}],
           open : false,
           winner : "",
-          end : false
+          end : false,
+          messages : []
 
         };
         /* Récuperation de l'id de la partie dans l'url : get */
@@ -186,6 +190,7 @@ export class TicTacToe extends React.Component {
               players : res.dataTicTacToe.players,
               squares: res.dataTicTacToe.cells
             });
+            
         });
         // MaJ partie
         this.socket.on('ack-turn-tictactoe', res => {
@@ -197,6 +202,14 @@ export class TicTacToe extends React.Component {
             xIsNext		: res.data.xIsNext
           });
         });
+        
+        // Récupération du message et ajouts dans la liste
+        this.socket.on('ack-message', res => {
+          this.setState(prevState => ({
+            messages: [...prevState.messages, res]
+          }))
+        });
+
 
         // Fin de partie
         this.socket.on('ack-end-tictactoe', res => {
@@ -263,6 +276,26 @@ export class TicTacToe extends React.Component {
       window.location="/Dashboard";
     }
 
+    // Concatenation de l'emoji dans le message
+    handleEmoji = (emoji) => {      
+      this.refs.message.value=this.refs.message.value.concat(emoji);
+    }
+
+    // Envoie du message au serveur
+    handleSendMessage = () => {
+      var date = new Date();
+      var message = { 
+        message: this.refs.message.value, 
+        gameId: this.gameId, 
+        user: localStorage.getItem('login'),
+        heure: date.getHours(),
+        minute: date.getMinutes(),
+        seconde: date.getSeconds()
+
+      }
+      this.socket.emit('message', message);
+    }
+
       //...
       //Changes the game current step and update player's turn accordingly
       //(will influence the game history)
@@ -272,6 +305,7 @@ export class TicTacToe extends React.Component {
           xIsNext: (step % 2) === 0
         });
     }
+    
 
     wellStyles = { maxWidth: 400, margin: '0 auto 10px' };
     render() {
@@ -279,17 +313,59 @@ export class TicTacToe extends React.Component {
       const history = this.state.history;
       const current = history[this.state.stepNumber];
       const squares = current.squares.slice();
-
+      const classes  = this.props;
         return(
 
           <div className="GameConfig">
           <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.0/semantic.min.css"/>
             <h1>Tic Tac Toe</h1>
             <div className="game">
-              <div className="game-board">
-                <Board squares={squares} onClick={this.handleClick} cells={[0,1,2,3,4,5,6,7,8]} />
+            <div className="container">
+              <div className="row">
+                  <div className="col-sm-4">
+
+                      <input type="text" id="message" ref="message" />
+                      <input type="submit" id="send" value="Envoyer mon message" onClick={this.handleSendMessage.bind(this)} />
+                 
+                    
+                      <button id="heart" onClick={this.handleEmoji.bind(this, '❤️')}>❤️</button>
+                      <button id="muscle" onClick={this.handleEmoji.bind(this, '💪')}>💪</button>
+                      <button id="smile" onClick={this.handleEmoji.bind(this, '😃')}>😃</button>
+                      <button id="unhappy"onClick={this.handleEmoji.bind(this, '😒')}>😒</button>
+
+                      <div id="messages">
+                        <div id="msgtpl">
+                          <div>
+                          {this.state.messages.map(data_msg =>
+                            <Card className={classes.card} key={data_msg}>
+                                <CardHeader
+                                    title={data_msg.user+" |  "+ data_msg.heure + "h" + data_msg.minute + "m" + data_msg.seconde+"s"}
+                                />
+                                <CardContent>
+
+                                    {data_msg.message}
+
+                                </CardContent>
+                            </Card>
+                          )}
+                          </div>
+                        </div>
+                      </div>
+
+                      <script src="node_modules/mustache/mustache.js"></script>
+                      <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+                      <script src="chat.js"></script>
+                  </div>
+
+                  <div className="col-sm-8">
+                    <div className="game-board">
+                      <Board squares={squares} onClick={this.handleClick} cells={[0,1,2,3,4,5,6,7,8]} />
+                    </div>
+
+                  </div>
+                </div>
               </div>
-            </div>
+          </div>
 
             <ToastContainer store={ToastStore}/>
             <div>
@@ -302,6 +378,7 @@ export class TicTacToe extends React.Component {
                />
              </div>
           </div>
+          
         )
     }
 }
