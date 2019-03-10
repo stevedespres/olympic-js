@@ -9,5 +9,5 @@ export class Logout extends React.Component {
         window.location = "/";
     }
 
-   render(){ return(null);}
-  }
+    render() { return (null); }
+}
