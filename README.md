@@ -51,8 +51,8 @@ https://nodejs.org/en/
 
 # Tester
  
-- Ouvrir 2 fenêtres de navigateur web en navigation privée pour simuler deux utilisateurs. 
--  Aller sur localhost:3000 puis créer des comptes utilisateurs, par exemple user1 et user2.
+- Ouvrir, dans 2 navigateurs, idéalement Edge et Chrome, avec chacun un onglet, pour simuler 2 utilisateurs. 
+- Aller sur localhost:3000 puis créer des comptes utilisateurs, par exemple user1 et user2.
 - Avec user1 créez une partie.
 - Avec user2 rejoignez la partie. 
 - Jouez.
